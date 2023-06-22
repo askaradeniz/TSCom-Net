@@ -1,0 +1,28 @@
+input_type: pointcloud
+input_resolution: 128
+input_points_number: 100000
+# model: IFNetPlusv2
+# folder_name: ifnet-plusv2
+model: JIN
+folder_name: jin_bs6_50000_res128
+data_path: /data/3d_cluster/SHARP2022/Challenge1_clone/Track1-3DBodyTex.v2/track1_data
+data_bounding_box: [-0.8, 0.8, -0.15, 2.1, -0.8, 0.8]
+split_file: /data/3d_cluster/SHARP2022/Challenge1_clone/Track1-3DBodyTex.v2/track1_data/ifnet-plus_split.npz
+experiment_prefix: /data/akaradeniz/experiments
+preprocessing:
+ boundary_sampling:
+  input_files_regex: /*/*/*_normalized.obj
+  sample_number: 100000
+  sigma: [0.01, 0.1]
+ voxelized_pointcloud_sampling:
+  input_files_regex: /*/*/*-partial*.obj
+training:
+ batch_size: 16
+ sample_points_per_object: 50000
+ optimizer: Adam
+generation:
+ retrieval_resolution: 256
+ checkpoint: 52
+ batch_points: 400000
+ mode: eval
+ retrieval_threshold: 0.5

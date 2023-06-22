@@ -1,0 +1,27 @@
+input_type: pointcloud
+input_resolution: 128
+input_points_number: 100000
+model: IFNetPlusv2
+folder_name: ifnet-plusv2
+data_bounding_box: [-0.8, 0.8, -0.15, 2.1, -0.8, 0.8]
+data_path: /data/3d_cluster/SHARP2021/Challenge1/Track1-3DBodyTex.v2
+split_file: /data/3d_cluster/SHARP2021/Challenge1/Track1-3DBodyTex.v2/ifnet_split.npz
+experiment_prefix: /data/akaradeniz/experiments
+preprocessing:
+ boundary_sampling:
+  input_files_regex: /*/*/*_normalized.obj
+  sample_number: 100000
+  sigma: [0.01, 0.1]
+ voxelized_pointcloud_sampling:
+  input_files_regex: /*/*/*-partial*.obj
+training:
+ batch_size: 2
+ sample_points_per_object: 50000
+ optimizer: Adam
+generation:
+ retrieval_resolution: 256
+ coarse_retreival_resolution: 128
+ checkpoint: 64
+ batch_points: 400000
+ mode: eval
+ retrieval_threshold: 0.5

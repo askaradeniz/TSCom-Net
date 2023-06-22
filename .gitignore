@@ -1,0 +1,9 @@
+*.txt
+logs
+snapshots
+masks
+.idea
+ckpt
+3dbodytex_dataset
+inpaint_env
+*.pyc
